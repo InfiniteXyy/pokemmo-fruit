@@ -1,5 +1,4 @@
 import csv
-import re
 
 from module.models import *
 
@@ -17,12 +16,10 @@ def read_data(file_name):
 # format data, return list of Fruit objects
 def extract_data(data):
     result = []
-    regex = re.compile(r"[（）]")
     for item in data:
         if item[0] == "":
             break
-        description = re.sub(regex, "", item[1])
-        fruit = Fruit(item[0], description, Seed(item[2:5]))
+        fruit = Fruit(item[0], item[1], Seed(item[2:5]), item[5])
         result.append(fruit)
 
     return result

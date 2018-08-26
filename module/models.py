@@ -1,33 +1,11 @@
 TYPES = ["异常果", "恢复果", "亲密度果", "努力果", "临时属性果", "方块原料果", "plus果", "减伤果"]
 
-
-def type_of_fruit(description):
-    if "HP果" in description or "PP果" in description:
-        return TYPES[1]
-    if "亲密果" in description:
-        return TYPES[2]
-    if "努力" in description:
-        return TYPES[3]
-    if "方块原料" in description:
-        return TYPES[5]
-    if "plus" in description:
-        return TYPES[6]
-    if "减受" in description:
-        return TYPES[7]
-    for i in ["临时", "随机", "加成", "一次先手", "回复", "反伤"]:
-        if i in description:
-            return TYPES[4]
-    else:
-        return TYPES[0]
-
-
 class Fruit:
-
-    def __init__(self, name, description, seeds):
+    def __init__(self, name, description, seeds, fruit_type):
         self.name = name
         self.description = description
         self.seeds = seeds
-        self.fruit_type = type_of_fruit(self.description)
+        self.fruit_type = fruit_type
 
     def __str__(self):
         return "{}: {}\t {}\t {}".format(self.name, self.description, self.seeds, self.fruit_type)
