@@ -1,5 +1,6 @@
 TYPES = ["异常果", "恢复果", "亲密度果", "努力果", "临时属性果", "方块原料果", "plus果", "减伤果"]
 
+
 class Fruit:
     def __init__(self, name, description, seeds, fruit_type):
         self.name = name
@@ -12,6 +13,15 @@ class Fruit:
 
     def get_type(self):
         return self.fruit_type
+
+    def get_name(self):
+        return self.name
+
+    def get_description(self):
+        return self.description
+
+    def get_seeds(self):
+        return self.seeds
 
 
 class Seed:
