@@ -19,7 +19,8 @@ def extract_data(data):
     for item in data:
         if item[0] == "":
             break
-        fruit = Fruit(item[0], item[1], Seed(item[2:5]), item[5])
+        product_num = tuple([int(x) for x in item[6].split("-")])
+        fruit = Fruit(item[0], item[1], Seed(item[2:5]), item[5], product_num)
         result.append(fruit)
 
     return result

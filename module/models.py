@@ -2,11 +2,12 @@ TYPES = ["异常果", "恢复果", "亲密度果", "努力果", "临时属性果
 
 
 class Fruit:
-    def __init__(self, name, description, seeds, fruit_type):
+    def __init__(self, name, description, seeds, fruit_type, product_num):
         self.name = name
         self.description = description
         self.seeds = seeds
         self.fruit_type = fruit_type
+        self.product_num = product_num
 
     def __str__(self):
         return "{}: {}\t {}\t {}".format(self.name, self.description, self.seeds, self.fruit_type)
@@ -22,6 +23,14 @@ class Fruit:
 
     def get_seeds(self):
         return self.seeds
+
+    def get_product_num(self):
+        if self.product_num[0] == 0:
+            return "产量未录入"
+        return "产量：{} ~ {}".format(*self.product_num)
+
+    def get_average_product_num(self):
+        return sum(self.product_num) / 2
 
 
 class Seed:

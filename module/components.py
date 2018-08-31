@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter.ttk import Treeview, Scrollbar
+import module.fruit_simulator as sm
 import models
 import PIL.Image
 import PIL.ImageTk
@@ -11,9 +12,14 @@ class SelectionFrame(Frame):
         super().__init__(**kw)
         self.fruit_list = fruit_list
         self.type_select = StringVar(self)
-        type_options = OptionMenu(self, self.type_select, *models.TYPES, command=self.set_group)
-        type_options.config(width=20)
-        type_options.grid(row=0, column=0, pady=10)
+        header = Label(self)
+        header.grid(row=0, column=0, columnspan=2, pady=10)
+        type_options = OptionMenu(header, self.type_select, *models.TYPES, command=self.set_group)
+        type_options.config(width=14)
+        type_options.grid(row=0, column=0)
+        # init start simulator button
+        simulator_btn = Button(header, text="模拟器", command=lambda: sm.Simulator().mainloop())
+        simulator_btn.grid(row=0, column=1)
         # init treeView
         self.tree = Treeview(self, columns=["名称", "效果"], show="headings")
         self.tree.column("名称", width=50, anchor='center')
@@ -58,9 +64,12 @@ class DetailFrame(Frame):
         self.descriptionVar = StringVar(self)
         self.seedVar = StringVar(self)
         self.nameVar = StringVar(self)
+        self.yieldVar = StringVar(self)
         Label(self, textvariable=self.nameVar, font=("Ping Fang", 16, "bold"), fg="#4a4a4a").grid(row=0, column=1)
         Label(self, textvariable=self.descriptionVar, font=("Ping Fang", 16), fg="#9b9b9b").grid(row=0, column=2)
         Label(self, textvariable=self.seedVar, font=("Ping Fang", 14), fg="#4a4a4a").grid(row=2, column=0, columnspan=3)
+        Label(self, textvariable=self.yieldVar, font=("Ping Fang", 14), fg="#9b9b9b").grid(row=3, column=0,
+                                                                                           columnspan=3)
 
     def select_fruit(self, fruit):
         img = PIL.Image.open("../assets/imgs/{}.png".format(fruit.name))
@@ -70,3 +79,38 @@ class DetailFrame(Frame):
         self.nameVar.set(fruit.get_name())
         self.descriptionVar.set(fruit.get_description())
         self.seedVar.set(fruit.get_seeds())
+        self.yieldVar.set(fruit.get_product_num())
+
+
+class ListFrame(Frame):
+    def __init__(self, title, **kw):
+        super().__init__(**kw, )
+        self.config(pady=8)
+        self.title = Label(self, text=title, font=("Ping Fang", 16, "bold"), fg="#4a4a4a", anchor='w')
+        self.listbox = Listbox(self, borderwidth=0, height=11, bg="#dadada")
+        self.title.pack(fill=X, pady=(0, 8), padx=(16, 0))
+        self.listbox.pack(fill=X, padx=(16, 0))
+
+
+class DisplayFrame(Frame):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.listbox = Listbox(self, borderwidth=0, bg="gray", height=16)
+        self.listbox.pack(fill=X, padx=16, pady=(42, 16))
+        self.info = StringVar(value="123")
+        self.info_label = Label(self, textvariable=self.info, anchor=W, justify=LEFT, font=("Ping Fang", 16),
+                                fg="#4a4a4a")
+        self.info.set('当前金钱：1234\n规则：PP果 2 块田\n循环次数：100次')
+
+        self.info_label.pack(fill=X, padx=16, pady=(0, 16))
+
+
+class ButtonGroup(Frame):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        titles = ["开始", "暂停", "结束", "下一步"]
+        buttons = []
+        for i in range(4):
+            buttons.append(Button(self, text=titles[i]))
+        for i in buttons:
+            i.pack(side=LEFT, padx=(16, 0))
