@@ -1,6 +1,7 @@
 # pokemmo-fruit
 ## what is it
-快速上手以及辅助 `Pokemmo` 树果种植的项目
+一个帮助你更快地查询 `Pokemmo` 中各种树果详情的软件
+
 ## screenshots
 <div>
     <img width="250" src="https://raw.githubusercontent.com/InfiniteXyy/pokemmo-fruit/master/assets/screenshots/1.png"/>
