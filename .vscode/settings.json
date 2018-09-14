@@ -1,9 +1,0 @@
-{
-    "files.exclude": {
-        ".idea": true,
-        ".vscode": true,
-        "**/*.csv": true,
-        "venv": true
-    },
-    "python.pythonPath": "${workspaceFolder}/venv/bin/python"
-}
