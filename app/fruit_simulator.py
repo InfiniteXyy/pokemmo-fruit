@@ -1,5 +1,5 @@
 from tkinter import *
-import module.components as comp
+import app.components as comp
 
 
 class Simulator(Tk):

@@ -1,6 +1,6 @@
 import csv
 
-from module.models import *
+from app.models import *
 
 
 # return Fruit data from .csv file

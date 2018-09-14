@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.ttk import Treeview, Scrollbar
-import module.fruit_simulator as sm
-import models
+import app.fruit_simulator as sm
+import app.models as models
 import PIL.Image
 import PIL.ImageTk
 
@@ -14,11 +14,13 @@ class SelectionFrame(Frame):
         self.type_select = StringVar(self)
         header = Label(self)
         header.grid(row=0, column=0, columnspan=2, pady=10)
-        type_options = OptionMenu(header, self.type_select, *models.TYPES, command=self.set_group)
+        type_options = OptionMenu(
+            header, self.type_select, *models.TYPES, command=self.set_group)
         type_options.config(width=14)
         type_options.grid(row=0, column=0)
         # init start simulator button
-        simulator_btn = Button(header, text="模拟器", command=lambda: sm.Simulator().mainloop())
+        simulator_btn = Button(
+            header, text="模拟器", command=lambda: sm.Simulator().mainloop())
         simulator_btn.grid(row=0, column=1)
         # init treeView
         self.tree = Treeview(self, columns=["名称", "效果"], show="headings")
@@ -48,7 +50,8 @@ class SelectionFrame(Frame):
     def select_item(self, event):
         item = self.tree.selection()[0]
         name = self.tree.item(item, "value")[0]
-        self.select_item_callback(next(filter(lambda x: x.name == name, self.fruit_list)))
+        self.select_item_callback(
+            next(filter(lambda x: x.name == name, self.fruit_list)))
 
     def set_select_callback(self, callback):
         self.select_item_callback = callback
@@ -65,14 +68,17 @@ class DetailFrame(Frame):
         self.seedVar = StringVar(self)
         self.nameVar = StringVar(self)
         self.yieldVar = StringVar(self)
-        Label(self, textvariable=self.nameVar, font=("Ping Fang", 16, "bold"), fg="#4a4a4a").grid(row=0, column=1)
-        Label(self, textvariable=self.descriptionVar, font=("Ping Fang", 16), fg="#9b9b9b").grid(row=0, column=2)
-        Label(self, textvariable=self.seedVar, font=("Ping Fang", 14), fg="#4a4a4a").grid(row=2, column=0, columnspan=3)
+        Label(self, textvariable=self.nameVar, font=(
+            "Ping Fang", 16, "bold"), fg="#4a4a4a").grid(row=0, column=1)
+        Label(self, textvariable=self.descriptionVar, font=(
+            "Ping Fang", 16), fg="#9b9b9b").grid(row=0, column=2)
+        Label(self, textvariable=self.seedVar, font=("Ping Fang", 14),
+              fg="#4a4a4a").grid(row=2, column=0, columnspan=3)
         Label(self, textvariable=self.yieldVar, font=("Ping Fang", 14), fg="#9b9b9b").grid(row=3, column=0,
                                                                                            columnspan=3)
 
     def select_fruit(self, fruit):
-        img = PIL.Image.open("../assets/imgs/{}.png".format(fruit.name))
+        img = PIL.Image.open("assets/imgs/{}.png".format(fruit.name))
         photo = PIL.ImageTk.PhotoImage(img)
         self.image_panel.config(image=photo)
         self.image_panel.image = photo
@@ -86,7 +92,8 @@ class ListFrame(Frame):
     def __init__(self, title, **kw):
         super().__init__(**kw, )
         self.config(pady=8)
-        self.title = Label(self, text=title, font=("Ping Fang", 16, "bold"), fg="#4a4a4a", anchor='w')
+        self.title = Label(self, text=title, font=(
+            "Ping Fang", 16, "bold"), fg="#4a4a4a", anchor='w')
         self.listbox = Listbox(self, borderwidth=0, height=11, bg="#dadada")
         self.title.pack(fill=X, pady=(0, 8), padx=(16, 0))
         self.listbox.pack(fill=X, padx=(16, 0))
